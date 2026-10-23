@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=%%W%%, height=%%H%%" />
+    <title>Reel</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@500;800;900&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+    <style>
+      /* ── TU MARCA: los colores salen de "marca" en escenas.json ── */
+      :root { --fondo: %%FONDO%%; --acento: %%ACENTO%%; --tinta: %%TINTA%%; --suave: %%SUAVE%%; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: %%W%%px; height: %%H%%px; overflow: hidden; background: var(--fondo); }
+      #root { position: relative; width: %%W%%px; height: %%H%%px; overflow: hidden; font-family: "Inter", sans-serif; color: var(--tinta); }
+      .clip { position: absolute; inset: 0; }
+      .abs { position: absolute; }
+      .ctr { left: 0; right: 0; text-align: center; }
+      .full { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .bg { position: absolute; inset: 0; background: radial-gradient(120% 78% at 50% 0%, color-mix(in srgb, var(--acento) 14%, var(--fondo)) 0%, var(--fondo) 62%); }
+      .w { display: inline-block; }
+      .kick { font-family: "JetBrains Mono", monospace; font-size: 24px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--suave); }
+      .ttl { font-family: "Instrument Serif", serif; font-size: %%TSIZE%%px; line-height: 0.98; letter-spacing: -0.02em; padding: 0 60px; }
+      .ttl .a, .card .a, .lst .a { font-style: italic; color: var(--acento); }
+      .card { position: absolute; left: 60px; right: 60px; margin: 0 auto; max-width: 1100px; top: %%CARD%%px; padding: 40px 50px; border-radius: 40px; background: color-mix(in srgb, var(--fondo) 92%, transparent); border: 1.5px solid color-mix(in srgb, var(--tinta) 12%, transparent); box-shadow: 0 30px 80px rgba(0,0,0,0.35); text-align: center; }
+      .card .t { font-family: "Instrument Serif", serif; font-size: 88px; line-height: 1; margin-top: 12px; }
+      .photo { position: absolute; left: 50%; top: %%CARD%%px; width: 56%; transform: translateX(-50%); border-radius: 30px; overflow: hidden; border: 6px solid color-mix(in srgb, var(--tinta) 90%, transparent); box-shadow: 0 30px 80px rgba(0,0,0,0.45); }
+      .photo img, .photo video { display: block; width: 100%; height: auto; max-height: %%PHOTOMAX%%px; object-fit: cover; }
+      .vtop { position: absolute; left: 22%; width: 56%; top: %%CARD%%px; max-height: %%PHOTOMAX%%px; object-fit: cover; border-radius: 30px; border: 6px solid color-mix(in srgb, var(--tinta) 90%, transparent); box-shadow: 0 30px 80px rgba(0,0,0,0.45); }
+      .logo { position: absolute; left: 50%; top: %%LOGO%%px; width: 300px; transform: translateX(-50%); }
+      .lst { position: absolute; left: 90px; right: 90px; top: %%KICK%%px; }
+      .lst .it { display: flex; align-items: center; gap: 26px; font-size: 64px; font-weight: 800; letter-spacing: -0.02em; margin-top: 34px; }
+      .lst .n { flex: none; width: 76px; height: 76px; border-radius: 50%; background: var(--acento); color: var(--fondo); font-size: 38px; display: flex; align-items: center; justify-content: center; }
+      .big { font-family: "Inter", sans-serif; font-weight: 900; font-size: %%BIG%%px; line-height: 1; letter-spacing: -0.04em; color: var(--acento); }
+      #caps { left: 60px; right: 60px; top: %%CAPS%%px; height: 120px; color: #fff; text-shadow: 0 3px 16px rgba(0,0,0,0.6); }
+      .cap { position: absolute; left: 0; right: 0; text-align: center; font-weight: 800; font-size: %%CSIZE%%px; line-height: 1.1; opacity: 0; }
+      .cap .k { font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; font-size: %%CKSIZE%%px; color: var(--acento); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="%%DUR%%" data-width="%%W%%" data-height="%%H%%" data-fps="30">
+      <video id="cam" class="clip full" src="footage/%%VIDEO%%" data-start="0" data-duration="%%DUR%%" data-media-start="0" data-track-index="0" muted playsinline></video>
+%%ESCENAS%%
+      <div id="capclip" class="clip" data-start="0" data-duration="%%DUR%%" data-track-index="8"><div id="caps" class="abs">%%CAPS_HTML%%</div></div>
+      %%AUDIO%%
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+      const q = (s) => Array.from(document.querySelectorAll(s));
+      const E = "power3.out";
+      // cada palabra sube desde un desenfoque; la palabra de acento aparece grande y se asienta
+      function word(el, t) { tl.fromTo(el, { y: 50, opacity: 0, filter: "blur(12px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.5, ease: E }, t); }
+      function accent(el, t) { tl.fromTo(el, { opacity: 0, scale: 1.25, filter: "blur(18px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.55, ease: E }, t); }
+      function pop(el, t) { tl.fromTo(el, { opacity: 0, y: -30, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.7)" }, t); }
+      function push(el, a, b) { tl.fromTo(el, { scale: 1 }, { scale: 1.06, duration: b - a, ease: "none" }, a); }
+      function capsOff(a, b) { tl.to("#caps", { opacity: 0, duration: 0.12 }, a); tl.to("#caps", { opacity: 1, duration: 0.12 }, b); }
+%%GSAP%%
+      q(".cap").forEach((c) => {
+        const a = parseFloat(c.dataset.a), b = parseFloat(c.dataset.b);
+        tl.fromTo(c, { opacity: 0, y: 14, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.12, ease: "back.out(2)" }, a);
+        tl.to(c, { opacity: 0, duration: 0.01 }, b - 0.01);
+      });
+    </script>
+  </body>
+</html>

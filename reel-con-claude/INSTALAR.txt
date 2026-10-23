@@ -1,0 +1,27 @@
+REEL CON CLAUDE · cómo instalarla (5 minutos)
+
+QUÉ NECESITAS
+- Claude Code: la app de escritorio de Claude (pestaña "Code") o el comando `claude` en la terminal.
+- Node 22 o más, ffmpeg y Python 3. Si te falta alguno, Claude te dice cómo instalarlo:
+    Mac:      brew install node ffmpeg whisper-cpp   (si no tienes brew: https://brew.sh · iPhone en HDR: además brew install ffmpeg-full)
+    Windows:  winget install OpenJS.NodeJS Gyan.FFmpeg Python.Python.3.12   (whisper te lo instala Claude)
+  Después de instalar, cierra y vuelve a abrir Claude Code.
+
+INSTALAR
+1. Descomprime este zip.
+2. Mueve la carpeta "reel-con-claude" a tu carpeta de skills:
+      Mac / Linux:  ~/.claude/skills/            (en Finder: Cmd+Shift+G y pega la ruta)
+      Windows:      C:\Users\<tu-usuario>\.claude\skills\
+   Si la carpeta "skills" no existe, créala.
+3. Cierra y vuelve a abrir Claude Code.
+
+USARLA
+Escríbele algo como:
+
+   Edita mi video ~/Desktop/mi-video.mov con la skill reel-con-claude.
+   Es un reel para Instagram, mi color de marca es #FF7A45 y mi logo está en ~/Desktop/logo.png.
+   Quiero que se vea como este video: <link de referencia>.
+   Tengo fotos y tomas extra en ~/Desktop/material/.
+
+Claude revisa que tengas todo instalado, te hace un par de preguntas, te propone el plan de escenas
+y te entrega el MP4 listo para publicar. La primera vez tarda más (descarga el modelo de transcripción).

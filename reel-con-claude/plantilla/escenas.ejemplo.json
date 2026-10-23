@@ -1,0 +1,17 @@
+{
+  "video": "montado.mp4",
+  "duracion": 32.5,
+  "marca": { "fondo": "#0B0B10", "acento": "#FF7A45", "tinta": "#FFFFFF", "suave": "#A0A0AE" },
+  "correcciones": { "Cloud": ["Claude"] },
+  "palabras_clave": ["claude", "segundos", "mensaje"],
+  "nombres": ["Claude"],
+  "escenas": [
+    { "tipo": "logo",    "desde": 1.2,  "hasta": 2.4,  "archivo": "logo.png" },
+    { "tipo": "tarjeta", "desde": 4.0,  "hasta": 7.0,  "etiqueta": "Paso 1", "texto": "Graba *sin miedo.*" },
+    { "tipo": "imagen",  "desde": 8.0,  "hasta": 10.5, "archivo": "broll/foto.jpg", "modo": "arriba" },
+    { "tipo": "video",   "desde": 11.0, "hasta": 13.5, "archivo": "broll/toma.mp4", "modo": "completa" },
+    { "tipo": "cifra",   "desde": 14.0, "hasta": 16.5, "etiqueta": "En un mes", "valor": "+120%", "texto": "más *alcance*" },
+    { "tipo": "lista",   "desde": 18.0, "hasta": 23.0, "etiqueta": "Lo que necesitas", "items": ["Tu *video*", "Tu *logo*", "Una *referencia*"], "tiempos": [18.3, 19.8, 21.4] },
+    { "tipo": "titulo",  "desde": 26.0, "hasta": 29.0, "etiqueta": "Lo importante", "texto": "¿Qué *mensaje* quieres dar?" }
+  ]
+}
